@@ -38,7 +38,7 @@ class SyncProducts extends Command
                         'index' => [
                             // 从参数中读取索引名称
                             '_index' => $this->option('index'),
-                            '_type'  => '_doc',
+                            '_type'  => 'doc',
                             '_id'    => $data['id'],
                         ],
                     ];

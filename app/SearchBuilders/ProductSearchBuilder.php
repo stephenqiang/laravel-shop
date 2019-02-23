@@ -8,7 +8,7 @@ class ProductSearchBuilder
     // 初始化查询
     protected $params = [
         'index' => 'products',
-        'type'  => '_doc',
+        'type'  => 'doc',
         'body'  => [
             'query' => [
                 'bool' => [

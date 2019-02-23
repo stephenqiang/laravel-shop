@@ -15,3 +15,5 @@ yarn-error.log
 /public/fonts
 /public/mix-manifest.json
 /resources/wechat_pay
+package-lock.json
+composer.lock
