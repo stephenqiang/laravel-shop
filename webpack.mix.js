@@ -14,3 +14,13 @@ let mix = require('laravel-mix');
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
    .version();
+
+mix.webpackConfig({
+    devServer: {
+        // host: '',
+        // port: '801'
+        proxy: {
+            "/": "http://127.0.0.1:801"
+        }
+    },
+});
