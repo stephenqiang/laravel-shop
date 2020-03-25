@@ -1,0 +1,11 @@
+{
+    "Api": true,
+    "Product": true,
+    "Order": true,
+    "User": true,
+    "Marketing": true,
+    "Statistics": true,
+    "Cart": true,
+    "Inventory": true,
+    "Core": true
+}

@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -35,7 +36,7 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return void
      */
-    public function report(Exception $exception)
+    public function report(Throwable  $exception)
     {
         parent::report($exception);
     }
@@ -47,8 +48,17 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, Throwable $exception)
     {
+        // 参数验证错误的异常，我们需要返回 400 的 http code 和一句错误信息
+        if ($exception instanceof ValidationException) {
+            return response(['error' => array_first(array_collapse($exception->errors()))], 400);
+        }
+        // 用户认证的异常，我们需要返回 401 的 http code 和错误信息
+        if ($exception instanceof UnauthorizedHttpException) {
+            return response($exception->getMessage(), 401);
+        }
+
         return parent::render($request, $exception);
     }
 }
