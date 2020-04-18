@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 use Illuminate\Database\Eloquent\Model;
@@ -87,7 +88,7 @@ class Product extends Model
     public function toESArray()
     {
         // 只取出需要的字段
-        $arr = array_only($this->toArray(), [
+        $arr = Arr::only($this->toArray(), [
             'id',
             'type',
             'title',
@@ -108,12 +109,12 @@ class Product extends Model
         $arr['description'] = strip_tags($this->description);
         // 只取出需要的 SKU 字段
         $arr['skus'] = $this->skus->map(function (ProductSku $sku) {
-            return array_only($sku->toArray(), ['title', 'description', 'price']);
+            return Arr::only($sku->toArray(), ['title', 'description', 'price']);
         });
         // 只取出需要的商品属性字段
         $arr['properties'] = $this->properties->map(function (ProductProperty $property) {
             // 对应地增加一个 search_value 字段，用符号 : 将属性名和属性值拼接起来
-            return array_merge(array_only($property->toArray(), ['name', 'value']), [
+            return array_merge(Arr::only($property->toArray(), ['name', 'value']), [
                 'search_value' => $property->name.':'.$property->value,
             ]);
         });

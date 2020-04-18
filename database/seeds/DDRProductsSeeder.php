@@ -3,6 +3,7 @@
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
 
 class DDRProductsSeeder extends Seeder
 {
@@ -130,7 +131,7 @@ class DDRProductsSeeder extends Seeder
         // 遍历上面的商品数据
         foreach ($productData as $data) {
             // 创建一个新商品
-            $product = new Product(array_merge(array_only($data, [
+            $product = new Product(array_merge(Arr::only($data, [
                 'title',
                 'long_title',
                 'description',
